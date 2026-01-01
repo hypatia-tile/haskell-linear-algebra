@@ -1,6 +1,6 @@
 module MyLib (someFunc) where
 
-import Vector
+import Matrix
 
 testMatrix2 :: IO ()
 testMatrix2 = do
