@@ -5,9 +5,11 @@ module Vector (
   add,
   scale,
   norm2,
+  mkMatrix,
+  linMap,
 ) where
 
-import Control.Monad (forM)
+import Control.Monad (forM, (>=>))
 import LA.Linear
 
 data Vec = Vec
@@ -80,3 +82,8 @@ mkMatrix r c colVecs =
           , ncols = r
           , entries = map coords cols
           }
+
+linMap :: Matrix -> LinearE Vec Vec
+linMap m = Linear $ \v ->
+  let dimV = dim v
+   in forM (entries m) (mkVec dimV >=> dot v) >>= mkVec (nrows m)
